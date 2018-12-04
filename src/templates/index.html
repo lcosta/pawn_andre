@@ -1,0 +1,49 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pawning someone</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link type=text/css href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+    <link type=text/css href="{{ url_for('static', filename='christmas.css') }}" rel="stylesheet">
+</head>
+<body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-danger border-bottom shadow-sm text-white">
+        <h2 class="my-0 mr-md-auto font-weight-bold text-center" style="margin: 0 auto;">Merry Pawning!</h2>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" style="background-color: transparent !important;">
+        <div class="container">
+            <h1 class="display-3">Wanna Voodoo someone?</h1>
+            <p class="text-white font-weight-bold ">By pressing this button, you are deliberatly voodooing someone. It will roll some dices (or simulate it) and will choose one from 6 scripts to pawn the poor guy...</p>
+            <p class="text-white font-weight-bold ">You have an option to not do it..</p>
+            <p><a class="btn btn-danger btn-lg" href="#" role="button">Roll the dices &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="santa">
+        <div class='stage'>
+            <div class='santa'>
+                <div class='dem-eyes-do'></div>
+            </div>
+            <div class='cactus'></div>
+        </div>
+    </div>
+          
+  
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Developed by sertas crew. Enjoy.</span>
+        </div>
+    </footer>
+      
+    <script type=text/javascript src="{{ url_for('static', filename='main.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='snowstorm.js') }}"></script>
+</body>
+
+
+
+
+

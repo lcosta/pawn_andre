@@ -1,0 +1,14 @@
+version: '2.4'
+
+services:
+  webpawn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: beevo/webpawn
+    volumes: 
+    - ./src:/usr/src/app
+    ports:
+    - 666:5000
+    environment:
+    - ENV=development
