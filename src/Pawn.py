@@ -15,7 +15,11 @@ class Pawn:
         self.uname = uname
 
     def pawn(self):
-        pass
+        """
+        Exec all
+        :return:
+        """
+        return True
 
     def __roll_dice(self):
         """
