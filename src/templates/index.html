@@ -8,28 +8,51 @@
 </head>
 <body>
 
+    <div class="ask-name bg-danger" id="ask-name-wrapper">
+        <div id="ask-name-container" class="container">
+            <h1 class="text-white">Type your name</h1>
+            <small class="text-white">You won't regret it...</small>
+            <input type="text" id="ask-name-input" class="form-control" /><br/>
+            <button type="submit" id="ask-name-btn" class="btn btn-warning text-white font-weight-bold btn-block">Submit</button>
+        </div>
+    </div>
+
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-danger border-bottom shadow-sm text-white">
-        <h2 class="my-0 mr-md-auto font-weight-bold text-center" style="margin: 0 auto;">Merry Pawning!</h2>
+        <h2 class="my-0 mr-md-auto font-weight-bold text-center" style="margin: 0 auto;" id="title">Merry Pawning!</h2>
     </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="background-color: transparent !important;">
-        <div class="container text-center">
-            <h1 class="display-3">Wanna Voodoo someone?</h1>
+        <div class="containe  text-centerr">
+            <h1 class="display-3 text-white font-weight-bold">Wanna Voodoo someone?</h1>
             <p class="text-white font-weight-bold ">By pressing this button, you are deliberatly voodooing someone. It will roll some dices (or simulate it) and will choose one from 6 scripts to pawn the poor guy...</p>
-            <p class="text-white font-weight-bold ">You have an option to not do it..</p>
-            <button id="pawn" class="btn btn-danger btn-lg" role="button">Roll the dices &raquo;</button>
+            <p class="text-white font-weight-bold ">You have an option not to do it..</p>
+            <p><a class="btn btn-danger btn-lg" href="#" role="button">Roll the dices &raquo;</a></p>
         </div>
     </div>
 
-    <div class="santa">
-        <div class='stage'>
-            <div class='santa'>
-                <div class='dem-eyes-do'></div>
-            </div>
-            <div class='cactus'></div>
-        </div>
+    
+<div class="santa">
+    <div class="santa__hat"></div>
+    <div class="santa__head"></div>
+    <div class="santa__body"></div>
+    <div class="santa__hand">
+      <div class="santa__hand-item santa__hand--left">
+        <div class="finger"></div>
+        <div class="finger"></div>
+        <div class="finger"></div>
+      </div>
+      <div class="santa__hand-item santa__hand--right">
+        <div class="finger"></div>
+        <div class="finger"></div>
+        <div class="finger"></div>
+      </div>
     </div>
+    <div class="santa__leg">
+      <div class="santa__leg-item santa__leg-item--left"></div>
+      <div class="santa__leg-item santa__leg-item--right"></div>
+    </div>
+  </div>
           
   
 
