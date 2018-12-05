@@ -2,6 +2,7 @@ import subprocess
 import os 
 from flask import Flask, request, render_template, abort
 import json
+from Pawn import Pawn
 
 
 app = Flask(__name__)
@@ -16,9 +17,11 @@ def index():
 def pawn():
     if not request.json:
         abort(400)
-    # TODO pawn class
-    print(request.json)
-    return json.dumps(request.json)
+
+    args = request.json
+    # TODO test full given args [id && name]
+    p = Pawn(args.id, args.name)
+    return p.pawn()
 
 
 if __name__ == "__main__":
