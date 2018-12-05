@@ -51,15 +51,47 @@
 (function() {
     var merryPawning = function() {
 
-        function checkForUsername() {
+        function getUsername() {
             var username = window.cook.read("username")
-            if (username) console.log("username: " + username)
-            else console.log("No username set")
+            if (username) {
+                console.log("username: " + username)
+                return username
+            }
+            else {
+                console.log("No username set")
+                return false
+            }
+        }
+
+        function saveUsername() {
+            var input = document.getElementById('ask-name-input').value
+            if (input && input.length > 3) {
+                window.cook.create("username", input, 5)
+                location.reload()
+            }
+            console.log(input)
+        }
+
+        function binds() {
+            var btn = document.getElementById('ask-name-btn').addEventListener("click", saveUsername)
+        }
+
+        function removeInputUsername() {
+            document.getElementById("ask-name-wrapper").style.display = "none";
+        }
+
+        function setUsernameInTitle() {
+            document.getElementById("title").innerHTML = "Merry pawning, " + getUsername() + "!";
         }
 
 
         var init = (function() {
-            checkForUsername()
+            var username = getUsername()
+            if (username !== false) {
+                removeInputUsername()
+                setUsernameInTitle()
+            }
+            binds()
             console.log("HEEEY")
         })();
     }
