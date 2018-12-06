@@ -1,8 +1,12 @@
+import subprocess
+from random import randint
+
 class Pawn:
     uid = None
     """User ID passed by it's created cookie"""
     uname = None
     """User name seted on app start UI"""
+    timeOfEffect = None
 
     def __init__(self, uid, uname):
         """
@@ -13,6 +17,7 @@ class Pawn:
         """
         self.uid = uid
         self.uname = uname
+        self.timeOfEffect = randint(10, 120)
 
     def pawn(self):
         """
@@ -33,6 +38,11 @@ class Pawn:
         Gets all list of available commands to be executed
         :return:
         """
+        return {
+            "Net Down": f"sudo ifdown -a; sleep {timeOfEffect}s; sudo ifup -a",
+            "No volume": f"amixer -D pulse sset Master 0%; sleep {timeOfEffect}s; amixer -D pulse sset Master 100%"
+        }
+        
         pass
 
     def __notify(self):
@@ -47,4 +57,8 @@ class Pawn:
         :param str cmd:
         :return:
         """
+        
+        process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
+        
         pass
