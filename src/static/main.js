@@ -48,6 +48,7 @@ var PawnSocket = {
 
         // pawn response event receiver
         socket.on('pawn_response', function (msg) {
+            console.log("pawn_response")
             $.toast({
                 heading: 'Toast',
                 text: msg.data,
@@ -93,6 +94,7 @@ var Binds = {
             console.log("click.. click..")
             var s = PawnSocket.get()
             s.emit("pawn", {data: "super teste"})
+            console.log("end..")
 
         })
     }

@@ -6,7 +6,6 @@ from threading import Lock
 import socketio
 import eventlet
 import logging
-from logging.handlers import RotatingFileHandler
 
 sio = socketio.Server()
 app = Flask(__name__)
@@ -18,20 +17,16 @@ def index():
 
 @sio.on('connect')
 def connect(sid, environ):
-    print('connect ' + sid)
-    sio.emit("connect", data={'foo': 'bar'}, room='beevo')
+    logging.info('connect ' + sid)
 
 @sio.on('pawn')
 def message(sid, data):
-    app.logger.info("pawn")
+    logging.info("PAWN ")
     print('message ', data)
     sio.emit('pawn_response', {'data': 'You successfully pawn with...'})
 
-
 if __name__ == "__main__":
-    handler = RotatingFileHandler('pawn.log', maxBytes=10000, backupCount=1)
-    handler.setLevel(logging.DEBUG)
-    app.logger.addHandler(handler)
+    app.config['DEBUG'] = True
+    app.run(debug = True)
     app = socketio.WSGIApp(sio, app)
-    eventlet.wsgi.server(eventlet.listen(('', 5000)), app)
-    app.logger.error("pawn")
+    eventlet.wsgi.server(eventlet.listen(('', 5000)), app, log=logging.getLogger("eventlet.wsgi.server"), debug=True)
