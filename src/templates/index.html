@@ -71,34 +71,8 @@
     <script type=text/javascript src="{{ url_for('static', filename='vendor/jquery.3.3.1.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='vendor/socket.io.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='Pawn.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='cookies.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='main.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='vendor/snowstorm.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='vendor/toast/jquery.toast.min.js') }}"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/socket');
-
-            // connect response receiver
-            socket.on('connect', function () {
-                $.toast({
-                    heading: 'Connected',
-                    icon: 'success',
-                    text: "Successfully connected",
-                    position: 'bottom-right',
-                    loader: false
-                })
-            });
-
-            // pawn response event receiver
-            socket.on('pawn_response', function (msg) {
-                $.toast({
-                    heading: 'Toast',
-                    text: msg.data,
-                    position: 'bottom-right',
-                    loader: false
-                })
-            });
-        });
-    </script>
-
 </body>

@@ -6,7 +6,7 @@ var Username = {
     set: function(name) {
         $.cookie("username", name)
     }
-}
+};
 
 
 (function() {
@@ -16,7 +16,7 @@ var Username = {
          * Username
          */
         function getUsername() {
-            var username = window.cook.read("username");
+            var username = window.cookie.read("username");
             if (username) {
                 console.log("username: " + username);
                 return username
@@ -29,7 +29,7 @@ var Username = {
         function setUsername() {
             var input = document.getElementById('ask-name-input').value;
             if (input && input.length > 3) {
-                window.cook.create("username", input, 50000000);
+                window.cookie.create("username", input, 50000000);
                 location.reload()
             }
             console.log(input)
@@ -52,7 +52,7 @@ var Username = {
 
         function rollTheDices() {
             // check cookie
-            var cookie = window.cook.read("usertimeout");
+            var cookie = window.cookie.read("usertimeout");
             if (cookie) return "Don't spam the poor guy :( Wait for your turn!"
 
             // if no cookie set 
@@ -60,7 +60,7 @@ var Username = {
             // make request
             
             // set cookie
-            window.cook.create("usertimeout", true, 20);
+            window.cookie.create("usertimeout", true, 20);
             // block ui
         }
 
@@ -78,8 +78,8 @@ var Username = {
         var init = (function() {
             var username = getUsername();
             binds();
-            if (username == false) {
-                removeUI()
+            if (username === false) {
+                removeUI();
                 return false;
             }
             removeInputUsername();
@@ -91,17 +91,35 @@ var Username = {
 })();
 
 
-var u = window.location.host;
+$(document).ready(function () {
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/');
 
-$("#pawn").click(function(){
-    var endpt = 'http://' + u + '/pawn',
-        uinfo = {
-            id: 123,
-            name: "Francisco"
-        };
-    
-    console.log(Pawn.post(endpt, uinfo));
+    // connect response receiver
+    socket.on('connect', function () {
+        // TODO disable loading
+        console.log("Successfully conected!")
+    });
+
+
+    $("#pawn").click(function(){
+        socket.emit("pawn", {user: window.cookie.read("username")});
+        console.log(this);
+    });
+
+
+    // pawn response event receiver
+    socket.on('pawn_response', function (msg) {
+        $.toast({
+            heading: 'Toast',
+            text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`",
+            position: 'bottom-right',
+            loader: false,
+            stack: 50,
+            icon: 'success'
+        })
+    });
 });
+
 
 
 
