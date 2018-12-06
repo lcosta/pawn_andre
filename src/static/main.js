@@ -41,7 +41,7 @@
             read: readCookie,
             erase: eraseCookie
         }
-    }
+    };
 
     window.cook = cookies();
     
@@ -52,21 +52,21 @@
     var merryPawning = function() {
 
         function getUsername() {
-            var username = window.cook.read("username")
+            var username = window.cook.read("username");
             if (username) {
-                console.log("username: " + username)
+                console.log("username: " + username);
                 return username
             }
             else {
-                console.log("No username set")
+                console.log("No username set");
                 return false
             }
         }
 
         function saveUsername() {
-            var input = document.getElementById('ask-name-input').value
+            var input = document.getElementById('ask-name-input').value;
             if (input && input.length > 3) {
-                window.cook.create("username", input, 5)
+                window.cook.create("username", input, 5);
                 location.reload()
             }
             console.log(input)
@@ -86,24 +86,24 @@
 
 
         var init = (function() {
-            var username = getUsername()
+            var username = getUsername();
             if (username !== false) {
-                removeInputUsername()
+                removeInputUsername();
                 setUsernameInTitle()
             }
-            binds()
+            binds();
             console.log("HEEEY")
         })();
-    }
+    };
 
     window.mp = merryPawning();
 })();
 
 
-let u = window.location.host;
+var u = window.location.host;
 
 $("#pawn").click(function(){
-    let endpt = `http://${u}/pawn`,
+    var endpt = 'http://' + u + '/pawn',
         uinfo = {
             id: 123,
             name: "Francisco"

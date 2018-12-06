@@ -4,7 +4,7 @@ body {
 
 .santa {
   position: absolute;
-  left: 50%;    
+  left: 50%;
   bottom: 50px;
   z-index: -50;
   -webkit-transform: translate(-50%, -50%);
