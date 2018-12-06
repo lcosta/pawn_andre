@@ -1,56 +1,20 @@
-(function() {
-    var cookies = function() {
+var Username = {
+    get: function() {
+        return $.cookie("username")
+    },
 
-        // Create cookie
-        function createCookie(name, value, days) {
-            var expires;
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime()+(days*24*60*60*1000));
-                expires = "; expires="+date.toGMTString();
-            }
-            else {
-                expires = "";
-            }
-            document.cookie = name+"="+value+expires+"; path=/";
-        }
-
-        // Read cookie
-        function readCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for(var i=0;i < ca.length;i++) {
-                var c = ca[i];
-                while (c.charAt(0) === ' ') {
-                    c = c.substring(1,c.length);
-                }
-                if (c.indexOf(nameEQ) === 0) {
-                    return c.substring(nameEQ.length,c.length);
-                }
-            }
-            return null;
-        }
-
-        // Erase cookie
-        function eraseCookie(name) {
-            createCookie(name,"",-1);
-        }
-
-        return {
-            create: createCookie,
-            read: readCookie,
-            erase: eraseCookie
-        }
-    };
-
-    window.cook = cookies();
-    
-})();
+    set: function(name) {
+        $.cookie("username", name)
+    }
+}
 
 
 (function() {
     var merryPawning = function() {
-
+        
+        /**
+         * Username
+         */
         function getUsername() {
             var username = window.cook.read("username");
             if (username) {
@@ -62,20 +26,18 @@
                 return false
             }
         }
-
-        function saveUsername() {
+        function setUsername() {
             var input = document.getElementById('ask-name-input').value;
             if (input && input.length > 3) {
-                window.cook.create("username", input, 5);
+                window.cook.create("username", input, 50000000);
                 location.reload()
             }
             console.log(input)
         }
 
-        function binds() {
-            var btn = document.getElementById('ask-name-btn').addEventListener("click", saveUsername)
-        }
-
+        /**
+         * Other functions
+         */
         function removeInputUsername() {
             document.getElementById("ask-name-wrapper").style.display = "none";
         }
@@ -84,15 +46,44 @@
             document.getElementById("title").innerHTML = "Merry pawning, " + getUsername() + "!";
         }
 
+        function removeUI() {
+            $('#ui').remove();
+        }
 
+        function rollTheDices() {
+            // check cookie
+            var cookie = window.cook.read("usertimeout");
+            if (cookie) return "Don't spam the poor guy :( Wait for your turn!"
+
+            // if no cookie set 
+            
+            // make request
+            
+            // set cookie
+            window.cook.create("usertimeout", true, 20);
+            // block ui
+        }
+
+        /**
+         * Binds
+         */
+        function binds() {
+            var btn = document.getElementById('ask-name-btn').addEventListener("click", setUsername)
+            var pawn = document.getElementById('ask-name-btn').addEventListener("click", rollTheDices)
+        }
+
+        /**
+         * Init function
+         */
         var init = (function() {
             var username = getUsername();
-            if (username !== false) {
-                removeInputUsername();
-                setUsernameInTitle()
-            }
             binds();
-            console.log("HEEEY")
+            if (username == false) {
+                removeUI()
+                return false;
+            }
+            removeInputUsername();
+            setUsernameInTitle()
         })();
     };
 
