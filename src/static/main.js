@@ -6,7 +6,7 @@ var Username = {
     set: function(name) {
         window.cookie.create("username", name, 10)
     }
-}
+};
 
 var Timer = {
     
@@ -25,6 +25,84 @@ var Welcome = {
     }
 }
 
+(function() {
+    var merryPawning = function() {
+        
+        /**
+         * Username
+         */
+        function getUsername() {
+            var username = window.cookie.read("username");
+            if (username) {
+                console.log("username: " + username);
+                return username
+            }
+            else {
+                console.log("No username set");
+                return false
+            }
+        }
+        function setUsername() {
+            var input = document.getElementById('ask-name-input').value;
+            if (input && input.length > 3) {
+                window.cookie.create("username", input, 50000000);
+                location.reload()
+            }
+            console.log(input)
+        }
+
+        /**
+         * Other functions
+         */
+        function removeInputUsername() {
+            document.getElementById("ask-name-wrapper").style.display = "none";
+        }
+
+        function setUsernameInTitle() {
+            document.getElementById("title").innerHTML = "Merry pawning, " + getUsername() + "!";
+        }
+
+        function removeUI() {
+            $('#ui').remove();
+        }
+
+        function rollTheDices() {
+            // check cookie
+            var cookie = window.cookie.read("usertimeout");
+            if (cookie) return "Don't spam the poor guy :( Wait for your turn!"
+
+            // if no cookie set 
+            
+            // make request
+            
+            // set cookie
+            window.cookie.create("usertimeout", true, 20);
+            // block ui
+        }
+
+        /**
+         * Binds
+         */
+        function binds() {
+            var btn = document.getElementById('ask-name-btn').addEventListener("click", setUsername)
+            var pawn = document.getElementById('ask-name-btn').addEventListener("click", rollTheDices)
+        }
+
+        /**
+         * Init function
+         */
+        var init = (function() {
+            var username = getUsername();
+            binds();
+            if (username === false) {
+                removeUI();
+                return false;
+            }
+            removeInputUsername();
+            setUsernameInTitle()
+        })();
+    };
+
 var PawnSocket = {
 
     get: function() {
@@ -37,23 +115,20 @@ var PawnSocket = {
 
         // connect response receiver
         socket.on('connect', function () {
-            $.toast({
-                heading: 'Connected',
-                icon: 'success',
-                text: "Successfully connected",
-                position: 'bottom-right',
-                loader: false
-            })
+            console.log("connected!");
+            // TODO disable load
         });
 
         // pawn response event receiver
         socket.on('pawn_response', function (msg) {
             console.log("pawn_response")
             $.toast({
-                heading: 'Toast',
-                text: msg.data,
-                position: 'bottom-right',
-                loader: false
+              heading: 'Toast',
+              text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`",
+              position: 'bottom-right',
+              loader: false,
+              stack: 50,
+              icon: 'success'
             })
         });
     }
@@ -87,19 +162,15 @@ var Binds = {
                     loader: false
                 })
             }
-        })
-
+        });
+      
         // Roll the dice
         $("#pawn").on('click', function() {
-            console.log("click.. click..")
-            var s = PawnSocket.get()
-            s.emit("pawn", {data: "super teste"})
-            console.log("end..")
-
-        })
+            var s = PawnSocket.get();
+            s.emit("pawn", {user: window.cookie.read("username")});
+        });
     }
-}
-
+};
 
 $(document).ready(function() {
     // Register socket actions
