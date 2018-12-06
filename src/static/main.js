@@ -1,13 +1,29 @@
 var Username = {
     get: function() {
-        return $.cookie("username")
+        return window.cookie.read("username")
     },
 
     set: function(name) {
-        $.cookie("username", name)
+        window.cookie.create("username", name, 10)
     }
 };
 
+var Timer = {
+    
+    get: function() {
+        return window.cookie.read("timeout")
+    },
+    
+    start: function() {
+        window.cookie.create("timeout", (new Date).getTime(), 10)
+    }
+}
+
+var Welcome = {
+    remove: function() {
+        document.getElementById("ask-name-wrapper").style.display = "none";
+    }
+}
 
 (function() {
     var merryPawning = function() {
@@ -87,48 +103,85 @@ var Username = {
         })();
     };
 
-    window.mp = merryPawning();
-})();
+var PawnSocket = {
 
+    get: function() {
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/socket');
+        return socket
+    },
 
-$(document).ready(function () {
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/');
+    register: function() {
+        var socket = this.get()
 
-    // connect response receiver
-    socket.on('connect', function () {
-        // TODO disable loading
-        console.log("Successfully conected!")
-    });
+        // connect response receiver
+        socket.on('connect', function () {
+            console.log("connected!");
+            // TODO disable load
+        });
 
+        // pawn response event receiver
+        socket.on('pawn_response', function (msg) {
+            console.log("pawn_response")
+            $.toast({
+              heading: 'Toast',
+              text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`",
+              position: 'bottom-right',
+              loader: false,
+              stack: 50,
+              icon: 'success'
+            })
+        });
+    }
+}
 
-    $("#pawn").click(function(){
-        socket.emit("pawn", {user: window.cookie.read("username")});
-        console.log(this);
-    });
+var Binds = {
+    register: function() {
+        // Username
+        $("#ask-name-btn").on('click', function() {
+            var username = $('#ask-name-input').val()
+            console.log(username)
+            if (username.length > 3) {
+                Username.set(username)
+                $.toast({
+                    heading: 'Login',
+                    icon: 'success',
+                    text: "Success! Prepare to voodoo someone!",
+                    position: 'bottom-right',
+                    loader: false
+                })
+                setTimeout(function() {
+                    console.log("reloading")
+                    window.location.reload()
+                }, 2000) // for drama
+            } else {
+                $.toast({
+                    heading: 'Username',
+                    icon: 'error',
+                    text: "la la la... Insert your name!",
+                    position: 'bottom-right',
+                    loader: false
+                })
+            }
+        });
+      
+        // Roll the dice
+        $("#pawn").on('click', function() {
+            var s = PawnSocket.get();
+            s.emit("pawn", {user: window.cookie.read("username")});
+        });
+    }
+};
 
+$(document).ready(function() {
+    // Register socket actions
+    PawnSocket.register();
+    // Register bind events
+    Binds.register();
 
-    // pawn response event receiver
-    socket.on('pawn_response', function (msg) {
-        $.toast({
-            heading: 'Toast',
-            text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`",
-            position: 'bottom-right',
-            loader: false,
-            stack: 50,
-            icon: 'success'
-        })
-    });
+    // Check if username is set
+    if (Username.get()) Welcome.remove();
+    else return false // Stop if not set
+
 });
 
 
-
-
-// TODO user name UI
-
-// TODO preserve user data on localstorage/cookie
-
-// TODO add toast
-
-// TODO add socket.io
-
-// TODO toast once another user pawns
