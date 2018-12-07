@@ -64,7 +64,7 @@ class Pawn:
         dir_logs = os.path.join(self.cur_dir, 'logs')
         dir_file = os.path.join(dir_logs, 'log.txt')
         with open(dir_file, "a") as myfile:
-            myfile.write("{} just did {}.".format(self.uname, cmd))
+            myfile.write("{} just did {}.\n".format(self.uname, cmd))
 
 
 
