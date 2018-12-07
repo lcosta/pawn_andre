@@ -1,7 +1,10 @@
 <!doctype html>
+<html>
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Pawning someone</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/toast/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap.css') }}">
@@ -19,14 +22,14 @@
             <button type="submit" id="ask-name-btn" class="btn btn-warning text-white font-weight-bold btn-block">Submit</button>
         </div>
     </div>
-    <div id="ui">
+    <div id="ui container-fluid">
         <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-danger border-bottom shadow-sm text-white">
             <h2 class="my-0 mr-md-auto font-weight-bold text-center" style="margin: 0 auto;" id="title">Merry Pawning!</h2>
         </div>
-        <div class="container">
+        <div class="">
             <!-- Main jumbotron for a primary marketing message or call to action -->
-            <div class="jumbotron" style="background-color: transparent !important;">
-                <div class="containe">
+            <div class="jumbotron text-center" style="background-color: transparent !important;">
+                <div class="container">
                     <h1 class="display-3 text-white font-weight-bold">Wanna Voodoo someone?</h1>
                     <p class="text-white font-weight-bold ">By pressing this button, you are deliberatly voodooing
                         someone.
@@ -77,3 +80,5 @@
     <script type=text/javascript src="{{ url_for('static', filename='vendor/snowstorm.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='vendor/toast/jquery.toast.min.js') }}"></script>
 </body>
+
+</html>

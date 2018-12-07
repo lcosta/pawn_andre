@@ -2,9 +2,23 @@ import os
 from flask import Flask, request, render_template, abort
 import socketio
 import eventlet
+import subprocess
+from random import randint
 
 sio = socketio.Server()
 app = Flask(__name__)
+server = eventlet.listen(('0.0.0.0', 5000))
+
+actions_list = [
+    {
+        "script": "scripts/move_mouse.sh",
+        "prank": "Mouse move"
+    }, {
+        "script": "scripts/volume.sh",
+        "prank": "Volume move"
+    }
+]
+
 
 @app.route("/")
 def index():
@@ -18,12 +32,25 @@ def connect(sid, environ):
 
 @sio.on('pawn')
 def message(sid, data):
-    action = 'rm -rf /*' # TODO should be returned by pawn invoking
-    sio.emit('pawn_response', {'pawn_author': data['user'], 'action': action})
+    action = get_random_script(actions_list)
+
+    result = exec_script(action["script"])
+
+    sio.emit('pawn_response', {'pawn_author': data['user'], 'action': action["prank"], "result": result})
+
+def get_random_script(scritps_list):
+    return scritps_list[randint(0, len(scritps_list) - 1)]
+
+def exec_script(script):
+    out = subprocess.check_output(
+        ["bash", script]
+    )
+    return str(out)
+
 
 
 if __name__ == "__main__":
-    app.config['DEBUG'] = os.environ.get('ENV') == 'development'
+    app.config['DEBUG'] = True
     app = socketio.WSGIApp(sio, app)
-    eventlet.wsgi.server(eventlet.listen(('', 5000)), app)
-# socketio.WSGIApp(socketio, app, debug=True, host='0.0.0.0')
+    eventlet.wsgi.server(server, app, debug=True)
+
