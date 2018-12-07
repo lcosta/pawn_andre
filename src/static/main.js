@@ -123,13 +123,15 @@ var PawnSocket = {
         // pawn response event receiver
         s.on('pawn_response', function (msg) {
             console.log("pawn_response");
+            console.log("result: " + msg.result);
             $.toast({
                 heading: 'Toast',
-                text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`",
+                text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`!",
                 position: 'bottom-right',
                 loader: false,
                 stack: 50,
-                icon: 'success'
+                icon: 'success',
+                hideAfter: false
             })
         });
     }
@@ -148,7 +150,7 @@ var Binds = {
                     icon: 'success',
                     text: "Success! Prepare to voodoo someone!",
                     position: 'bottom-right',
-                    loader: false
+                    loader: false,
                 });
                 setTimeout(function () {
                     console.log("reloading");
@@ -165,7 +167,7 @@ var Binds = {
             }
         });
 
-        if(cookie.read('block_pawn')){
+        if(window.cookie.read('block_pawn')){
             $("#pawn").prop('disabled', true);
         }
         // Roll the dice
@@ -173,10 +175,10 @@ var Binds = {
             PawnSocket.get().emit("pawn", {user: window.cookie.read("username")});
 
             // TODO gen new cookie
-            cookie.create('block_pawn', true, 0.00005787037037); // 5secs
+            window.cookie.create('block_pawn', true, 0.00005787037037); // 5secs
 
             // TODO block this button
-            $(this).prop('disabled', true);
+            // $(this).prop('disabled', true);
 
             // TODO start timer to next available click
         });
