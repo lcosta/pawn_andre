@@ -6,6 +6,8 @@ import logging
 
 sio = socketio.Server()
 app = Flask(__name__)
+server = eventlet.listen(('0.0.0.0', 5000))
+
 
 @app.route("/")
 def index():
@@ -27,6 +29,5 @@ def message(sid, data):
 
 if __name__ == "__main__":
     app.config['DEBUG'] = True
-    app.run(debug = True)
     app = socketio.WSGIApp(sio, app)
-    eventlet.wsgi.server(eventlet.listen(('', 5000)), app, log=logging.getLogger("eventlet.wsgi.server"), debug=True)
+    eventlet.wsgi.server(server, app, log=logging.getLogger("eventlet.wsgi.server"), debug=True)
