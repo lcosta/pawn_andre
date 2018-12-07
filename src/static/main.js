@@ -9,7 +9,6 @@ var Username = {
 };
 
 var Timer = {
-
     get: function () {
         return window.cookie.read("timeout")
     },
@@ -69,7 +68,7 @@ var merryPawning = function () {
     function rollTheDices() {
         // check cookie
         var cookie = window.cookie.read("usertimeout");
-        if (cookie) return "Don't spam the poor guy :( Wait for your turn!"
+        if (cookie) return "Don't spam the poor guy :( Wait for your turn!";
 
         // if no cookie set
 
@@ -166,9 +165,20 @@ var Binds = {
             }
         });
 
+        if(cookie.read('block_pawn')){
+            $("#pawn").prop('disabled', true);
+        }
         // Roll the dice
         $("#pawn").on('click', function () {
             PawnSocket.get().emit("pawn", {user: window.cookie.read("username")});
+
+            // TODO gen new cookie
+            cookie.create('block_pawn', true, 0.00005787037037); // 5secs
+
+            // TODO block this button
+            $(this).prop('disabled', true);
+
+            // TODO start timer to next available click
         });
     }
 };
