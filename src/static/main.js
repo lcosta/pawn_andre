@@ -122,18 +122,22 @@ var PawnSocket = {
 
         // pawn response event receiver
         s.on('pawn_response', function (msg) {
-            console.log("pawn_response");
-            console.log("result: " + msg.result);
+            var same_author = msg.pawn_author === window.cookie.read('username'),
+                author = !same_author ? msg.pawn_author : "you",
+                inc = same_author ? " Now wait 5 seconds to pawn again." : "";
+
             $.toast({
                 heading: 'Toast',
-                text: "Daaaammmnn! <strong style='font-size:20px'>" + msg.pawn_author + "</strong> just pawned with  <strong style='font-size:18px'>`" + msg.action + "`</strong>!",
+                text: "Daaaammmnn! <strong style='font-size:20px'>" + author + "</strong> just pawned with  <strong style='font-size:18px'>`" + msg.action.replace("_", " ") + "`</strong>!" + inc,
                 position: 'bottom-right',
                 loader: false,
                 stack: 50,
                 icon: 'success',
                 hideAfter: false,
                 bgColor: '#'+Math.floor(Math.random()*16777215).toString(16)
-            })
+            });
+            // play sound
+            document.getElementById("plucky").play();
         });
     }
 };
@@ -173,13 +177,17 @@ var Binds = {
         }
         // Roll the dice
         $("#pawn").on('click', function () {
+            var _t = $(this);
             PawnSocket.get().emit("pawn", {user: window.cookie.read("username")});
 
             // TODO gen new cookie
             window.cookie.create('block_pawn', true, 0.00005787037037); // 5secs
 
             // TODO block this button
-            // $(this).prop('disabled', true);
+            _t.prop('disabled', true);
+            setTimeout(function () {
+                _t.prop("disabled", false)
+            }, 5000);
 
             // TODO start timer to next available click
         });

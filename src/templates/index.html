@@ -71,6 +71,19 @@
             </div>
         </footer>
     </div>
+
+    <!-- Audio -->
+    <audio class="hidden" id="plucky">
+      <source src="/static/sounds/plucky.ogg" type="audio/ogg">
+      <source src="/static/sounds/plucky.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio autoplay loop>
+        <source src="/static/sounds/WhiteChristmas.mp3">
+        <source src="/static/sounds/WhiteChristmas.ogg">
+    </audio>
+
     <script type=text/javascript src="{{ url_for('static', filename='vendor/jquery.3.3.1.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='vendor/socket.io.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='cookies.js') }}"></script>
