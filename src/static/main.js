@@ -126,12 +126,13 @@ var PawnSocket = {
             console.log("result: " + msg.result);
             $.toast({
                 heading: 'Toast',
-                text: "Daaaammmnn! " + msg.pawn_author + " just pawned with `" + msg.action + "`!",
+                text: "Daaaammmnn! <strong style='font-size:20px'>" + msg.pawn_author + "</strong> just pawned with  <strong style='font-size:18px'>`" + msg.action + "`</strong>!",
                 position: 'bottom-right',
                 loader: false,
                 stack: 50,
                 icon: 'success',
-                hideAfter: false
+                hideAfter: false,
+                bgColor: '#'+Math.floor(Math.random()*16777215).toString(16)
             })
         });
     }
