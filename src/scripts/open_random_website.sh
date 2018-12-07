@@ -1,1 +1,1 @@
-sensible-browser http://www.nyan.cat/
+sensible-browser "http://www.nyan.cat/"
