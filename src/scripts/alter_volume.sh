@@ -1,3 +1,3 @@
 amixer -D pulse sset Master 0%
-sleep $1
+sleep 2
 amixer -D pulse sset Master 100%
