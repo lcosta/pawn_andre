@@ -1,199 +1,460 @@
+body,
+html,
+.wrap {
+  height: 100%;
+  margin: 0;
+}
+
+
 body {
-  background: #355261;
+  overflow: hidden;
+  background-image: radial-gradient(circle, #2ebf91, #8360c3);
+}
+
+#wrap-welcome {
+  visibility: hidden;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  background: white;
+  justify-content: center;
+}
+.wrap-santa {
+/*  position: absolute;
+  width: 50%;*/
 }
 
 .santa {
-  position: absolute;
-  left: 50%;
-  bottom: 50px;
-  z-index: -50;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+position: absolute;
+left: -50px;
+bottom: -10%;
+height: 400px;
+width: 320px;
+transform: rotate(30deg);
 }
-.santa__hat {
-  position: relative;
-  width: 0;
-  height: 0;
-  left: 50%;
-  top: -60px;
-  margin-left: -45px;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 80px solid #db5656;
-  -webkit-transform: rotate(5deg);
-  -moz-transform: rotate(5deg);
-  transform: rotate(5deg);
-  z-index: 1;
-}
-.santa__hat:after, .santa__hat:before {
-  content: "";
-  position: absolute;
-  background-color: #fff;
-}
-.santa__hat:after {
-  width: 120px;
-  height: 30px;
-  top: 80px;
-  left: -60px;
-  border-radius: 5px;
-}
-.santa__hat:before {
-  width: 35px;
-  height: 35px;
-  left: -18px;
-  top: -10px;
-  border-radius: 50%;
-}
+
 .santa__head {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: #dbdbdb;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  margin-left: -50px;
+    width: 185.6px;
+    height: 185.6px;
+    margin: 0 auto;
+    z-index: 10;
+    animation-name: headRotation;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
 .santa__head:after {
-  content: "";
-  width: 120px;
-  height: 120px;
-  background: #dbdbdb;
-  position: absolute;
-  left: -10px;
-  top: 25px;
-  border-radius: 50%;
+    content: '';
+    display: block;
+    position: absolute;
+    left: -11.2px;
+    top: 24px;
+    border-bottom: 80px solid #d81f41;
+    border-right: 48px solid transparent;
+    transform: rotateZ(-122deg);
 }
+
+.santa__head:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 96px;
+    left: -19.2px;
+    width: 24px;
+    height: 24px;
+    background-color: #fefffe;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.santa__hat {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -8px;
+    width: 144px;
+    height: 64px;
+    border-top-left-radius: 128px;
+    border-top-right-radius: 128px;
+    background-color: #d81f41;
+    z-index: 20;
+}
+
+.santa__hat:after {
+    content: '';
+    display: block;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 38.4px;
+    width: 140.8px;
+    height: 67.2px;
+    border-top: 25.6px solid #f9f8fa;
+    border-left: 9.6px solid transparent;
+    border-right: 9.6px solid transparent;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    overflow: hidden;
+}
+
+.santa__face {
+    width: 134.4px;
+    height: 185.6px;
+    background-color: #fddbb4;
+    border-radius: 30%;
+    bottom: 0;
+    z-index: 10;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.santa__eye {
+    position: absolute;
+    top: 64px;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    background-color: #fefffe;
+}
+
+.santa__eye-1 {
+    left: 32px;
+}
+
+.santa__eye-2 {
+    right: 32px;
+}
+
+.santa__pupil {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #261e22;
+    border-radius: 50%;
+    top: 12.8px;
+}
+
+.santa__pupil-1 {
+    left: 12.8px;
+}
+
+.santa__pupil-2 {
+    left: 12.8px;
+}
+
+.santa__nose {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 99.2px;
+    width: 14.4px;
+    height: 7.2px;
+    border-radius: 40%;
+    border-bottom: 0.96px solid #564a49;
+}
+
+.santa__nose:after, .santa__nose:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 1.6px;
+    width: 5.76px;
+    height: 5.76px;
+    border-bottom: 1.28px solid #564a49;
+    border-radius: 50%;
+}
+
+.santa__nose:after {
+    right: -3.2px;
+}
+
+.santa__nose:before {
+    left: -3.2px;
+}
+
+.santa__mouth {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 124.8px;
+    width: 20px;
+    height: 6.4px;
+    transform: translateX(-50%) rotateZ(3deg);
+    border-top: 1.28px solid #564a49;
+    border-radius: 50%;
+}
+
+.santa__beard {
+    bottom: 0;
+    width: 128px;
+    height: 128px;
+    border-radius: 35%;
+    border-left: 8px solid #fefffe;
+    border-right: 8px solid #fefffe;
+    border-bottom: 48px solid #fefffe;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.santa__beard:after {
+    content: '';
+    display: block;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 64px;
+    border-top: 3.2px solid #fefffe;
+    border-left: 5.44px solid #fefffe;
+    border-right: 5.44px solid #fefffe;
+    border-bottom: 5.44px solid transparent;
+    border-radius: 40%;
+    bottom: -51.2px;
+}
+
+.santa__beard:before {
+    content: '';
+    display: block;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 8.96px solid transparent;
+    border-left: 8.96px solid transparent;
+    border-right: 8.96px solid transparent;
+    border-bottom: 8.96px solid #fefffe;
+    bottom: 0;
+}
+
 .santa__body {
-  width: 425px;
-  height: 200px;
-  background: #db5656;
-  z-index: 1;
-  position: relative;
-  overflow: hidden;
-  border-radius: 0  0 100% 100% / 0 0 200% 200%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 112px;
+    width: 240px;
+    height: 265.6px;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 40%;
+    background-color: #d81f41;
+    z-index: 5;
 }
+
 .santa__body:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  background-color: #ebf0ef;
+    content: '';
+    display: block;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: breath 4s infinite;
+    width: 236.8px;
+    height: 128px;
+    border-top-left-radius: 224px;
+    border-top-right-radius: 224px;
+    border-top: 41.6px solid #d81f41;
+    border-left: 44.8px solid #d81f41;
+    border-right: 44.8px solid #d81f41;
 }
+
+.santa__body:before {
+    content: '';
+    display: block;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 2.4px;
+    height: 40px;
+    background-color: #261d22;
+}
+
 .santa__hand {
-  position: absolute;
-  top: 80px;
-  left: 0;
-  height: 60px;
-  width: 435px;
-  z-index: 2;
+    position: absolute;
+    top: 166.4px;
+    width: 40px;
+    height: 40px;
+    border-radius: 30%;
+    background-color: #fddbb4;
 }
-.santa__hand-item {
-  width: 45%;
-  height: 100%;
-  background-color: #db5656;
-  position: absolute;
+
+.santa__hand:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -8px;
+    width: 39.04px;
+    height: 22.4px;
+    background-color: #fefffe;
 }
-.santa__hand-item:after, .santa__hand-item:before {
-  content: "";
-  position: absolute;
+
+.santa__hand-1 {
+    left: -40px;
 }
-.santa__hand-item:after {
-  content: "";
-  width: 30px;
-  height: 100%;
-  background: #fff;
+
+.santa__hand-2 {
+    right: -40px;
 }
-.santa__hand-item:before {
-  left: 0;
-  width: 80%;
-  height: 100%;
-  box-shadow: -4px 3px 6px #ba4945;
+
+.santa__leg {
+    position: absolute;
+    bottom: -12.8px;
+    width: 134.4px;
+    height: 14.4px;
+    border-radius: 40%;
+    background-color: #342e36;
+    z-index: 5;
 }
-.santa__hand--left {
-  left: 0;
+
+.santa__leg:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -3.2px;
+    width: 95%;
+    height: 50%;
+    border-radius: 30%;
+    background-color: #fefffe;
+    z-index: 4;
 }
-.santa__hand--left:after {
-  left: 0;
+
+.santa__leg-1 {
+    left: -8px;
 }
-.santa__hand--right {
-  right: 0;
+
+.santa__leg-2 {
+    right: -8px;
 }
-.santa__hand--right:after {
-  right: 0;
+
+.santa__jacket {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 140.8px;
+    width: 240px;
+    height: 64px;
+    border-bottom: 19.2px solid #fefffe;
+    border-radius: 50%;
 }
-.santa__hand--right:before {
-  box-shadow: 4px 3px 6px #ba4945;
-  left: inherit;
-  right: 0;
+
+.santa__jacket:before {
+    content: '';
+    display: block;
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -70.4px;
+    height: 136px;
+    width: 24px;
+    background-color: #fefffe;
 }
-.santa__hand--right .finger {
-  left: inherit !important;
-  right: -10px;
-  transform: rotate(-180deg);
+
+.santa__belt {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 160px;
+    width: 240px;
+    height: 32px;
+    border-radius: 15%;
+    animation: beltMove 4s infinite;
+    background-color: #48424d;
+    z-index: 30;
 }
-.santa__hand--right .finger:nth-child(2) {
-  width: 15px;
-  top: 20px;
-  right: -15px;
+
+.santa__belt:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    box-sizing: border-box;
+    width: 70.4px;
+    height: 48px;
+    border: 8px solid #febe09;
 }
-.santa__hand .finger {
-  width: 10px;
-  height: 20px;
-  background: #db5656;
-  position: absolute;
-  left: -10px;
-  border-radius: 50% 0 0 50%;
+
+.santa__belt:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 112px;
+    height: 8px;
+    width: 19.2px;
+    border-radius: 10%;
+    background-color: #febe09;
 }
-.santa__hand .finger:first-child {
-  top: 5px;
+
+@keyframes headRotation {
+    0% {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
+    10% {
+        transform: translateX(-50%) rotateZ(2deg);
+    }
+    20% {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
+    30% {
+        transform: translateX(-50%) rotateZ(-5deg);
+    }
+    40% {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
 }
-.santa__hand .finger:nth-child(2) {
-  width: 15px;
-  top: 20px;
-  left: -15px;
+
+@keyframes breath {
+    0% {
+        border-top: 41.6px solid #d81f41;
+        border-left: 41.6px solid #d81f41;
+        border-right: 41.6px solid #d81f41;
+    }
+    25% {
+        border-top: 43.2px solid #d81f41;
+        border-left: 43.2px solid #d81f41;
+        border-right: 43.2px solid #d81f41;
+        top: -3.2px;
+    }
+    50% {
+        border-top: 41.6px solid #d81f41;
+        border-left: 41.6px solid #d81f41;
+        border-right: 41.6px solid #d81f41;
+        top: 0;
+    }
 }
-.santa__hand .finger:last-child {
-  bottom: 5px;
-}
-.santa__leg-item {
-  width: 50px;
-  height: 100px;
-  background: #db5656;
-  position: absolute;
-  bottom: -80px;
-}
-.santa__leg-item--left {
-  left: 125px;
-  -webkit-transform: skew(-15deg);
-  -moz-transform: skew(-15deg);
-  transform: skew(-15deg);
-}
-.santa__leg-item--right {
-  right: 125px;
-  -webkit-transform: skew(15deg) rotateY(180deg);
-  -moz-transform: skew(15deg) rotateY(180deg);
-  transform: skew(15deg) rotateY(180deg);
-}
-.santa__leg-item:after, .santa__leg-item:before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-}
-.santa__leg-item:after {
-  width: 100%;
-  height: 70%;
-  background: #000;
-  left: 0;
-}
-.santa__leg-item:before {
-  width: 0;
-  height: 0;
-  left: -50%;
-  border-style: solid;
-  border-width: 0 0 35px 35px;
-  border-color: transparent transparent #000 transparent;
+
+@keyframes beltMove {
+    0% {
+        top: 160px;
+        width: 240px;
+        height: 32px;
+    }
+    25% {
+        top: 161.6px;
+        width: 243.2px;
+        height: 35.2px;
+    }
+    50% {
+        top: 160px;
+        width: 240px;
+        height: 32px;
+    }
 }

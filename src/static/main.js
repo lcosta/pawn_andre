@@ -1,6 +1,62 @@
+let wrapper = {
+    /** Welcome object instance */
+    welcome: {
+        /** @var ({HTMLElement|null}) $el */
+        $el: document.getElementById("wrap-welcome"),
+    },
+
+    /** Pawn object instance */
+    pawm: {
+        /** @var ({HTMLElement|null}) $el */
+        $el: document.getElementById("wrap-welcome"),
+    },
+
+    /**
+     * Verifies if required ctx is valid
+     *
+     * @param {string} ctx required context
+     * @private
+     * @throws error message if required ctx isn't valid
+     */
+    _verify: function(ctx) {
+        if(wrapper.hasOwnProperty(ctx) && wrapper[ctx].$el instanceof HTMLElement){
+            return;
+        }
+
+        throw "The required " + ctx + " is invalid";
+    },
+
+    /**
+     * Shows required item
+     *
+     * @param {string} ctx required context to apply
+     *
+     * @return {wrapper}
+     */
+    show: function (ctx) {
+        this._verify(ctx);
+        wrapper[ctx].$el.style.visibility = "visible";
+
+        return this;
+    },
+
+    /**
+     * Remove required item
+     *
+     * @param {string} ctx required context to apply
+     * @return {wrapper}
+     */
+    remove: function (ctx) {
+        this._verify(ctx);
+        wrapper[ctx].$el.nextElementSibling.remove();
+
+        return this;
+    },
+};
+
 var Username = {
     get: function () {
-        return window.cookie.read("username")
+        return window.cookie.read("username") || false;
     },
 
     set: function (name) {
@@ -34,8 +90,7 @@ var merryPawning = function () {
         if (username) {
             console.log("username: " + username);
             return username
-        }
-        else {
+        } else {
             console.log("No username set");
             return false
         }
@@ -105,7 +160,7 @@ var merryPawning = function () {
 var PawnSocket = {
 
     get: function () {
-        if(typeof window.socket === "undefined"){
+        if (typeof window.socket === "undefined") {
             window.socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/');
         }
         return window.socket;
@@ -134,7 +189,7 @@ var PawnSocket = {
                 stack: 50,
                 icon: 'success',
                 hideAfter: false,
-                bgColor: '#'+Math.floor(Math.random()*16777215).toString(16)
+                bgColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
             });
             // play sound
             document.getElementById("plucky").play();
@@ -172,7 +227,7 @@ var Binds = {
             }
         });
 
-        if(window.cookie.read('block_pawn')){
+        if (window.cookie.read('block_pawn')) {
             $("#pawn").prop('disabled', true);
         }
         // Roll the dice
@@ -194,7 +249,9 @@ var Binds = {
     }
 };
 
-
+/**
+ * Init app
+ */
 $(document).ready(function () {
     // Register socket actions
     PawnSocket.register();
@@ -202,9 +259,13 @@ $(document).ready(function () {
     Binds.register();
 
     // Check if username is set
-    // TODO add loading to avoid visible removing
     if (Username.get()) {
-        Welcome.remove();
+        // TODO show pawn container
+        wrapper.show('pawn').remove('welcome');
+    } else {
+        // TODO show welcome container
+        wrapper.show('welcome').remove('pawn');
     }
+
     return false; // Stop if not set
 });
